@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AuthLayout from "@components/layouts/AuthLayout";
+import { useFeatureFlag } from "@components/layouts/Flag";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { protectRoutes } from "./routes";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { getActive } = useFeatureFlag();
+
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<AuthLayout />}>
+					{protectRoutes.map((r, index) => {
+						if (!r.flagName || getActive(r.flagName))
+							return (
+								<Route
+									key={index}
+									index={r.index}
+									path={r.path}
+									element={r.element}
+								/>
+							);
+
+						return <></>;
+					})}
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;

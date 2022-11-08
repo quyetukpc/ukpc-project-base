@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@components/*": ["src/components/*"],
+			"@configs": ["src/configs"],
+			"@controllers": ["src/controllers"],
+			"@helpers": ["src/helpers"],
+			"@hooks/*": ["src/hooks/*"],
+			"@i18n/*": ["src/i18n/*"],
+			"@pages/*": ["src/pages/*"],
+			"@layouts/*": ["src/layouts/*"]
+		}
+	}
+}
